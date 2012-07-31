@@ -24,5 +24,10 @@ start_link() ->
 %% ===================================================================
 
 init([]) ->
-    {ok, { {one_for_one, 5, 10}, []} }.
+    {ok, { {one_for_one, 5, 10},
+           [{sockserv_sup, {sockserv_sup, start_link, []},
+             permanent, 1000, supervisor, [sockserv_sup]}
+           ]
+         }
+    }.
 

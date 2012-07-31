@@ -8,5 +8,5 @@
                   stdlib
                  ]},
   {mod, { kozel_app, []}},
-  {env, []}
+  {env, [{port, 9999}]}
  ]}.
