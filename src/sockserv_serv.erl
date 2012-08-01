@@ -32,6 +32,7 @@ handle_info(?SOCK("quit"++_), S) ->
     {stop, normal, S};
 
 handle_info(?SOCK(Str), S = #state{socket=Socket}) ->
+    io:format("got: ~p~n", [Str]),
     T = line(Str),
     send(Socket, "You say: " ++ T, []),
     {noreply, S};

@@ -4,12 +4,16 @@
 -export([start_link/0, start_socket/0]).
 -export([init/1]).
 
+-define(INITIAL_EMPTY_LISTENERS, 1).
+
 start_link() ->
     supervisor:start_link({local, ?MODULE}, ?MODULE, []).
 
 init([]) ->
     {ok, Port} = application:get_env(port),
-    {ok, ListenSocket} = gen_tcp:listen(Port, [{active,once}, {packet,line}]),
+    {ok, ListenSocket} = gen_tcp:listen(Port,
+                                        [{active, once},
+                                         {packet, line}]),
     spawn_link(fun empty_listeners/0),
     {ok, {{simple_one_for_one, 60, 3600},
          [{socket,
@@ -21,5 +25,5 @@ start_socket() ->
     supervisor:start_child(?MODULE, []).
 
 empty_listeners() ->
-    [start_socket() || _ <- lists:seq(1,20)],
+    [start_socket() || _ <- lists:seq(1, ?INITIAL_EMPTY_LISTENERS)],
     ok.
