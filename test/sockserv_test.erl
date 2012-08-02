@@ -22,7 +22,6 @@ connect_test({_Socket, Port}) ->
     {ok, Socket} = gen_tcp:connect({127, 0, 0, 1}, Port, []),
     Res = receive_data(),
     ok = gen_tcp:send(Socket, "Test\n"),
-    inet:setopts(Socket, [{active, once}]),
     Res1 = receive_data(),
     [?_assertEqual("Accepted\n", Res),
      ?_assertEqual("You say: Test\n", Res1)
