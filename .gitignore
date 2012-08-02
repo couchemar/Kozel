@@ -2,6 +2,7 @@ erl_crash.dump
 /ebin/*.app
 /ebin/*.beam
 .eunit/
+doc/
 *~
 #*
 *#
