@@ -3,5 +3,15 @@
 
 compare_test_() ->
     [?_assertEqual({{"♣", "Q"}, 14, 3},
-                  cards:compare({"♣", "Q"}, {"♠", "Q"}))
+                  cards:compare({"♣", "Q"}, {"♠", "Q"})),
+     ?_assertEqual({{"♣", "Q"}, 14, 3},
+                  cards:compare({"♣", "Q"}, {"♥", "Q"})),
+     ?_assertEqual({{"♣", "Q"}, 14, 3},
+                  cards:compare({"♣", "Q"}, {"♦", "Q"})),
+     ?_assertEqual({{"♣", "Q"}, 14, 3},
+                  cards:compare({"♠", "Q"}, {"♣", "Q"})),
+     ?_assertEqual({{"♣", "Q"}, 14, 3},
+                  cards:compare({"♥", "Q"}, {"♣", "Q"})),
+     ?_assertEqual({{"♣", "Q"}, 14, 3},
+                  cards:compare({"♦", "Q"}, {"♣", "Q"}))
     ].
