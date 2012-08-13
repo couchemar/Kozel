@@ -16,10 +16,23 @@ compare(Card1, Card2) ->
                   true ->
                       {Card1, P1}
               end,
-
-    Cost = get_cost(Card),
-    % Возвращаем {Card, Power, Cost}
-    {Card, Power, Cost}.
+    if
+        Power == 0 ->
+            C1 = get_cost(Card1),
+            C2 = get_cost(Card2),
+            Result = if
+                         C1 > C2 ->
+                             {Card1, 0, C1};
+                         C2 > C1 ->
+                             {Card2, 0, C2};
+                         true ->
+                             {Card1, 0, C1}
+                     end;
+        true ->
+            Cost = get_cost(Card),
+            Result = {Card, Power, Cost}
+    end,
+    Result.
 
 get_power(Card) ->
     proplists:get_value(Card, ?TRUMPS, 0).
