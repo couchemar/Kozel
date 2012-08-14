@@ -3,6 +3,7 @@
 
 -export([compare/2]).
 
+-spec compare(card(), card()) -> {card(), number(), number()}.
 compare(Card1, Card2) ->
     P1 = get_power(Card1),
     P2 = get_power(Card2),

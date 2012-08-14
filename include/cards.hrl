@@ -1,6 +1,13 @@
 % Cards definition
 
--define(SUIT_SYMBOLS, ["♣", "♠", "♥", "♦"]).
+-type suit() :: spades | clubs | hearts | diamonds.
+-type value() :: 7..10 | j | q | k | a.
+-type card() :: {suit(), value()}.
+
+-define(SUIT_SYMBOLS, [{clubs, "♣"},
+                       {spades, "♠"},
+                       {hearts, "♥"},
+                       {diamonds, "♦"}]).
 
 -define(CARDS_COST, [{"A", 11},
                      {"K", 4},
