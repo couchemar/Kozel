@@ -23,22 +23,21 @@
                      {7, 0}
                     ]).
 
--define(TRUMPS_POWER, [
-                 %% QUEENS
-                 {{clubs, q}, 14},
-                 {{spades, q}, 13},
-                 {{hearts, q}, 12},
-                 {{diamonds, q}, 11},
-                 %% JACKS
-                 {{clubs, j}, 10},
-                 {{spades, j}, 9},
-                 {{hearts, j}, 8},
-                 {{diamonds, j}, 7},
-                 %% Rest Trumps
-                 {{diamonds, a}, 6},
-                 {{diamonds, 10}, 5},
-                 {{diamonds, k}, 4},
-                 {{diamonds, 9}, 3},
-                 {{diamonds, 8}, 2},
-                 {{diamonds, 7}, 1}
-                ]).
+-define(TRUMPS_POWER, [%% QUEENS
+                       {{clubs, q}, 14},
+                       {{spades, q}, 13},
+                       {{hearts, q}, 12},
+                       {{diamonds, q}, 11},
+                       %% JACKS
+                       {{clubs, j}, 10},
+                       {{spades, j}, 9},
+                       {{hearts, j}, 8},
+                       {{diamonds, j}, 7},
+                       %% Rest Trumps
+                       {{diamonds, a}, 6},
+                       {{diamonds, 10}, 5},
+                       {{diamonds, k}, 4},
+                       {{diamonds, 9}, 3},
+                       {{diamonds, 8}, 2},
+                       {{diamonds, 7}, 1}
+                      ]).

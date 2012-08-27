@@ -34,6 +34,7 @@ compare(Card1, Card2) ->
             Result = {Card, Power, Cost}
     end,
     Result.
+
 -spec get_power(card()) -> card_power().
 get_power(Card) ->
     proplists:get_value(Card, ?TRUMPS_POWER, 0).
