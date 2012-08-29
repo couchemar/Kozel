@@ -10,12 +10,16 @@
 
 -behaviour(gen_fsm).
 
+-include_lib("include/cards.hrl").
+
 %% API
 -export([start_link/1]).
 
 %% gen_fsm callbacks
--export([init/1, state_name/2, state_name/3, handle_event/3,
+-export([init/1, handle_event/3,
          handle_sync_event/4, handle_info/3, terminate/3, code_change/4]).
+
+-export([idle/2, idle/3, turn/2, turn/3]).
 
 -define(SERVER, ?MODULE).
 
@@ -24,7 +28,9 @@
 %%%===================================================================
 %%% API
 %%%===================================================================
-
+-spec start_link([card()]) -> {ok, pid()}     |
+                              ignore          |
+                              {error, term()}.
 start_link(Cards) ->
     gen_fsm:start_link(?MODULE, [Cards], []).
 
