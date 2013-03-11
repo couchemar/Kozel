@@ -1,10 +1,12 @@
+REBAR = ./rebar
+
 .PHONY: clean compile run
 
 clean:
-	@rebar clean
+	$(REBAR) clean
 
 compile:
-	@rebar compile
+	$(REBAR) compile
 
 run:
 	make compile
@@ -13,7 +15,7 @@ run:
 tests:
 	make clean
 	make compile
-	@rebar eunit
+	$(REBAR) eunit
 
 dialyzer-all:
 	make clean

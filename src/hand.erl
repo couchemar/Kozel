@@ -32,7 +32,7 @@
                               ignore          |
                               {error, term()}.
 start_link(Cards) ->
-    gen_fsm:start_link(?MODULE, [Cards], []).
+    gen_fsm:start_link(?MODULE, Cards, []).
 
 %%%===================================================================
 %%% gen_fsm callbacks
@@ -51,23 +51,27 @@ start_link(Cards) ->
 %%                     {stop, StopReason}
 %% @end
 %%--------------------------------------------------------------------
-init([Cards]) ->
-    {ok, idle, #state{cards=Cards}}.
+init(Cards) ->
+    {ok, idle, #state{cards=sets:from_list(Cards)}}.
 
 idle(_Event, State) ->
-    {next_state, idle, State}.
+    {stop, bad_event, State}.
 
 turn(_Event, State) ->
-    {next_state, turn, State}.
+    {stop, bad_event, State}.
 
-idle(_Event, _From, State) ->
-    Reply = ok,
-    {reply, Reply, turn, State}.
+idle(your_turn, _From, State) ->
+    {reply, ok, turn, State}.
 
-turn(_Event, _From, State) ->
-    Reply = ok,
-    {reply, Reply, idle, State}.
-
+turn({go, Card}, _From, State) ->
+    Cards = State#state.cards,
+    case sets:is_element(Card, Cards) of
+        true ->
+            NewCards = sets:del_element(Card, Cards),
+            NewState = State#state{cards=NewCards},
+            {reply, ok, idle, NewState};
+        false -> {reply, 'bad card', turn, State}
+    end.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -101,6 +105,9 @@ handle_event(_Event, StateName, State) ->
 %%                   {stop, Reason, Reply, NewState}
 %% @end
 %%--------------------------------------------------------------------
+handle_sync_event('state?', _From, StateName, State) ->
+    Reply = {StateName, sets:to_list(State#state.cards)},
+    {reply, Reply, StateName, State};
 handle_sync_event(_Event, _From, StateName, State) ->
     Reply = ok,
     {reply, Reply, StateName, State}.
