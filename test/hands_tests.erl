@@ -1,4 +1,4 @@
--module(hands).
+-module(hands_tests).
 -include_lib("eunit/include/eunit.hrl").
 
 hands_test() ->
@@ -6,8 +6,8 @@ hands_test() ->
     QHearts = {hearts, q},
     Hand1 = [QClubs, {spades, a}],
     Hand2 = [{hearts, q}, {diamonds, j}],
-    {ok, Hand1Pid} = hand:start_link(Hand1),
-    {ok, Hand2Pid} = hand:start_link(Hand2),
+    {ok, Hand1Pid} = hands:start_link(Hand1),
+    {ok, Hand2Pid} = hands:start_link(Hand2),
     ?assertEqual(
        {idle, Hand1},
        gen_fsm:sync_send_all_state_event(Hand1Pid, 'state?')

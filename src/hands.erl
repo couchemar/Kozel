@@ -6,7 +6,7 @@
 %%% @end
 %%% Created : 28 Aug 2012 by Andrey Pavlov <couchemar@couchemar>
 %%%-------------------------------------------------------------------
--module(hand).
+-module(hands).
 
 -behaviour(gen_fsm).
 
@@ -55,10 +55,10 @@ init(Cards) ->
     {ok, idle, #state{cards=sets:from_list(Cards)}}.
 
 idle(_Event, State) ->
-    {stop, bad_event, State}.
+    {next_state, idle, State}.
 
 turn(_Event, State) ->
-    {stop, bad_event, State}.
+    {next_state, turn, State}.
 
 idle(your_turn, _From, State) ->
     {reply, ok, turn, State}.
